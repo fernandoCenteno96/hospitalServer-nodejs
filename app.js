@@ -21,6 +21,10 @@ app.use(bodyParser.json())
 var appRoute=require('./src/routes/app');
 var userRoute=require('./src/routes/user');
 var loginRoute=require('./src/routes/login');
+var medicoRoute=require('./src/routes/medico');
+var hospitalRoute=require('./src/routes/hospital');
+var busquedaRoute=require('./src/routes/busqueda');
+var uploadRoute=require('./src/routes/upload');
 
 //conexion base de datos
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB',{useNewUrlParser: true,useUnifiedTopology: true},(err,res)=>{
@@ -33,7 +37,12 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB',{useNewUrlPar
 //rutas
 app.use('/user',userRoute);
 app.use('/login',loginRoute);
+app.use('/medico',medicoRoute);
+app.use('/hospital',hospitalRoute);
+app.use('/busqueda',busquedaRoute);
+app.use('/upload',uploadRoute);
 app.use('/',appRoute);
+
 
 
 

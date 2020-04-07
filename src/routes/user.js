@@ -15,8 +15,13 @@ var Usuario=require('../models/user');
 //obtener todos los usuarios 
 //==========================
 app.get('/',(req,res,next)=>{
+
+    var desde=req.query.desde || 0;
+    desde=Number(desde);
     Usuario.find({},
         'nombre email img role apellido')
+        .skip(desde)
+        .limit(5)
         .exec(
         (err,users)=>{
         if(err){
@@ -25,10 +30,15 @@ app.get('/',(req,res,next)=>{
             message:"error con base de datos",
             errors:err });
         }
-        res.status(200).json({
+        Usuario.count({},(err,conteo)=>{
+
+            res.status(200).json({
             success:true,
-            usuario:users
+            usuario:users,
+            total:conteo
+            });
         });
+        
     });
 
     
